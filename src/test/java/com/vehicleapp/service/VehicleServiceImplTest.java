@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -46,7 +47,7 @@ class VehicleServiceImplTest {
         MockitoAnnotations.openMocks(this);
 
         vehicle = new Vehicle();
-        vehicle.setId(13L);
+//        vehicle.setId(13L);
         vehicle.setVehicleName("Ford");
         vehicle.setPassword("123456i");
         vehicle.setEmail("test@gmail.com");
@@ -54,7 +55,7 @@ class VehicleServiceImplTest {
         vehicle.setVehicleNumber("iF440");
         vehicle.setRegisteredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
         vehicle.setModifiedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
-//        vehicleService.registerVehicle(vehicle);
+        vehicleService.registerVehicle(vehicle);
     }
 
 
@@ -141,6 +142,22 @@ class VehicleServiceImplTest {
         assertThrows(VehicleException.class, () -> {
             vehicleService.deleteVehicleById(6544004190L);
         });
+    }
+
+    @Test
+    void testThatWeCanUpdateVehicleDetails(){
+        vehicle = vehicleService.findVehicleById(11L);
+        assertNotNull(vehicle);
+        vehicle.setVehicleNumber("MCD67009");
+        try {
+            vehicleService.updateVehicle(vehicle);
+        } catch (VehicleException e){
+            log.info(e.getMessage());
+        }
+
+        vehicle = vehicleService.findVehicleById(11L);
+        assertNotNull(vehicle);
+        assertThat(vehicle.getVehicleNumber()).isEqualTo("MCD67009");
     }
 
 
