@@ -67,6 +67,22 @@ class VehicleServiceImplTest {
     }
 
     @Test
+    void testThatWeCanActuallyRegisterAVehicle(){
+
+        vehicle = Vehicle.builder()
+                .email("ty@yahoo.com")
+                .vehicleName("Toyota")
+                .vehicleNumber("TTV5643")
+                .imageUrl("********tt.png*******")
+                .password("TT1234321")
+                .registeredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
+                .modifiedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
+                .build();
+
+        vehicleService.registerVehicle(vehicle);
+    }
+
+    @Test
     void registerVehicleWithEmptyFields(){
         assertThrows(ConstraintViolationException.class, () -> {
             vehicleService.registerVehicle(vehicle);
