@@ -87,10 +87,15 @@ class VehicleControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
-
-
     }
 
+    @Test
+    void testTheDeleteVehicleEndpoint() throws Exception{
+        this.mockMvc.perform(delete("/vehicle/delete/11"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 
 
 
