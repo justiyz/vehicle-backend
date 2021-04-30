@@ -35,7 +35,6 @@ class VehicleRepositoryTest {
     @Test
     void saveVehicleTest(){
         vehicle = Vehicle.builder()
-                .email("vl@yahoo.com")
                 .vehicleName("Volvo")
                 .vehicleNumber("VLV5643")
                 .build();
@@ -45,11 +44,9 @@ class VehicleRepositoryTest {
     @Test
     void registerVehicleMethodTest(){
         vehicle = Vehicle.builder()
-                .email("rr@yahoo.com")
                 .vehicleName("Rolls Royce")
                 .vehicleNumber("RRV5643")
                 .imageUrl("********RR.png*******")
-                .password("RR1234321")
                 .registeredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .modifiedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .build();
@@ -67,7 +64,7 @@ class VehicleRepositoryTest {
 
     @Test
     void testFindByEmailMethod(){
-        vehicle = vehicleRepository.findByEmail("ab@gmail.com");
+        vehicle = vehicleRepository.findByVehicleName("Ford");
         assertNotNull(vehicle);
         log.info("found vehicle by email -> {}", vehicle);
     }

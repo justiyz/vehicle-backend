@@ -1,10 +1,7 @@
 package com.vehicleapp.data.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,8 +12,8 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Vehicle implements Serializable {
+@Table(name = "vehicle")
+public class Vehicle  {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -30,13 +27,11 @@ public class Vehicle implements Serializable {
     private String vehicleNumber;
 
     @NotNull
-    private String email;
-
-    @NotNull
-    private String password;
-
-    @NotNull
     private String imageUrl;
+
+    @ManyToOne
+    @ToString.Exclude
+    private VehicleUser vehicleUser;
 
     @NotNull
     private String registeredDate;

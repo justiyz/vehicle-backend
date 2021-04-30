@@ -1,16 +1,15 @@
-package com.vehicleapp.service;
+package com.vehicleapp.service.vehicle;
 
 import com.vehicleapp.data.model.Vehicle;
+import com.vehicleapp.data.model.VehicleUser;
 import com.vehicleapp.data.repository.VehicleRepository;
+import com.vehicleapp.data.repository.VehicleUserRepository;
 import com.vehicleapp.service.exception.VehicleException;
+import com.vehicleapp.service.vehicle.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -21,38 +20,37 @@ import java.util.List;
 
 
 @Service
-public class VehicleServiceImpl implements VehicleService{
+public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     VehicleRepository vehicleRepository;
+
+    @Autowired
+    VehicleUserRepository vehicleUserRepository;
 
     private final Logger logger = LoggerFactory.getLogger(Vehicle.class);
 
 
 
 
-//    private String encryptPassword(String password) {
-//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//        return bCryptPasswordEncoder.encode(password);
-//    }
-
 
     @Override
     public void registerVehicle(Vehicle vehicle) {
+//        VehicleUser vehicleUser = vehicleUserRepository.findById(vehicle.getId()).orElse(null);
 
         vehicle = Vehicle.builder()
-//                .password(encryptPassword(vehicle.getPassword()))
                 .vehicleName(vehicle.getVehicleName())
                 .vehicleNumber(vehicle.getVehicleNumber())
-                .password(vehicle.getPassword())
-                .email(vehicle.getEmail())
                 .imageUrl(vehicle.getImageUrl())
+//                .vehicleUser(vehicleUser)
                 .registeredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .modifiedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .build();
 
         vehicleRepository.save(vehicle);
     }
+
+
 
     @Override
     public Vehicle findVehicleById(Long id) {
@@ -78,9 +76,6 @@ public class VehicleServiceImpl implements VehicleService{
         if (vehicle.getVehicleNumber() != null){
             existingVehicle.setVehicleNumber(vehicle.getVehicleNumber());
         }
-        if (vehicle.getEmail() != null){
-            existingVehicle.setEmail(vehicle.getEmail());
-        }
         if (vehicle.getRegisteredDate() != null){
             existingVehicle.setRegisteredDate(vehicle.getRegisteredDate());
         }
@@ -103,6 +98,7 @@ public class VehicleServiceImpl implements VehicleService{
         }
         vehicleRepository.deleteById(id);
     }
+
 
 
 

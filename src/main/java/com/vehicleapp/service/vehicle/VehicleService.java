@@ -1,4 +1,4 @@
-package com.vehicleapp.service;
+package com.vehicleapp.service.vehicle;
 
 import com.vehicleapp.data.model.Vehicle;
 import com.vehicleapp.service.exception.VehicleException;

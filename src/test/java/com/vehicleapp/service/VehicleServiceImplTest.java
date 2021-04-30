@@ -3,6 +3,7 @@ package com.vehicleapp.service;
 import com.vehicleapp.data.model.Vehicle;
 import com.vehicleapp.data.repository.VehicleRepository;
 import com.vehicleapp.service.exception.VehicleException;
+import com.vehicleapp.service.vehicle.VehicleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,8 +50,6 @@ class VehicleServiceImplTest {
         vehicle = new Vehicle();
 //        vehicle.setId(13L);
         vehicle.setVehicleName("Ford");
-        vehicle.setPassword("123456i");
-        vehicle.setEmail("test@gmail.com");
         vehicle.setImageUrl("img.pg");
         vehicle.setVehicleNumber("iF440");
         vehicle.setRegisteredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")));
@@ -70,11 +69,9 @@ class VehicleServiceImplTest {
     void testThatWeCanActuallyRegisterAVehicle(){
 
         vehicle = Vehicle.builder()
-                .email("ty@yahoo.com")
                 .vehicleName("Toyota")
                 .vehicleNumber("TTV5643")
                 .imageUrl("********tt.png*******")
-                .password("TT1234321")
                 .registeredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .modifiedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .build();
@@ -92,8 +89,6 @@ class VehicleServiceImplTest {
     @Test
     void registerVehicleWithNullValues(){
         vehicle.setVehicleName(null);
-        vehicle.setPassword(null);
-        vehicle.setEmail(null);
         vehicle.setVehicleNumber(null);
         assertThrows(ConstraintViolationException.class, () -> {
             vehicleService.registerVehicle(vehicle);

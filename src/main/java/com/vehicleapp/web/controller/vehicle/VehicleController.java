@@ -1,8 +1,8 @@
-package com.vehicleapp.web.controller;
+package com.vehicleapp.web.controller.vehicle;
 
 
 import com.vehicleapp.data.model.Vehicle;
-import com.vehicleapp.service.VehicleServiceImpl;
+import com.vehicleapp.service.vehicle.VehicleServiceImpl;
 import com.vehicleapp.service.exception.VehicleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {

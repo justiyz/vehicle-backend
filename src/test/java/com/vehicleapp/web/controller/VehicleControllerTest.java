@@ -40,11 +40,9 @@ class VehicleControllerTest {
     @Test
     void testRegisterVehicleEndpoint() throws Exception {
         vehicle = Vehicle.builder()
-                .email("fe@yahoo.com")
                 .vehicleName("Ferrari")
                 .vehicleNumber("FEV5643")
                 .imageUrl("********fe.png*******")
-                .password("FE1234321")
                 .registeredDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .modifiedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")))
                 .build();
